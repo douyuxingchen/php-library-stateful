@@ -1,0 +1,10 @@
+# Edit Dir
+.idea
+.project
+.DS_Store
+.vscode
+
+# Project
+vendor
+.env
+.env*
