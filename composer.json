@@ -1,6 +1,6 @@
 {
     "name": "douyuxingchen/php-library-stateful",
-    "description": "Stateful service encapsulation class",
+    "description": "有状态的库旨在简化您的业务代码和优化您的业务架构，将底层基础设施沉淀到基础库，如 Redis 分布式锁定，数据查询缓存等等。",
     "type": "library",
     "license": "GPL-3.0-only",
     "autoload": {
