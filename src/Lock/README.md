@@ -13,19 +13,15 @@ use Douyuxingchen\PhpLibraryStateful\Lock\RedisLock;
 
 3. 获取 RedisLock 的单例对象：
 ```php
-$redisLock = RedisLock::getInstance();
+$redisLock = RedisLock::getInstance()->setKey('test_key');
 ```
 
 4. 自定义设置（可选）：
-- 设置锁的 Key：
-  ```php
-  $redisLock->setKey('my_lock');
-  ```
 - 设置锁的超时时间（单位：秒）：
   ```php
   $redisLock->setTimeout(10);
   ```
-- 设置锁的 Token：
+- 设置锁的 Token（不建议自定义）：
   ```php
   $redisLock->setToken('my_token');
   ```
@@ -77,7 +73,7 @@ if ($result) {
 9. 实践技巧
 使用  `try` 和 `finally` 对加锁和解锁的操作进行包裹是为了确保无论业务逻辑是否抛出异常，锁都能被正确地释放。
 ```php
-$redisLock = RedisLock::getInstance();
+$redisLock = RedisLock::getInstance()->setKey('test_key');
 try {
     $res = $redisLock->lock();
     if($res) {
