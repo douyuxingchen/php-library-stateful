@@ -8,3 +8,6 @@
 vendor
 .env
 .env*
+.phpunit.*
+tests/codeCoverage
+false
