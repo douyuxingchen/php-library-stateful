@@ -25,6 +25,17 @@ class RedisLockTest extends TestCase
         }
     }
 
+    // 测试加锁超时时间
+    public function testLockTimeout()
+    {
+        $redisLock = (new RedisLock('lock_key_testLockTimeout'))
+            ->setTests();
+        $redisLock->setTimeout(20);
+        $res = $redisLock->lock();
+        echo sprintf("过期时间：%d \n", $redisLock->getTtl());
+        $this->assertTrue($res);
+    }
+
     // 测试竞争锁失败
     public function testLockFailed()
     {

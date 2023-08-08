@@ -62,9 +62,14 @@ class RedisLock {
         return $this;
     }
 
-    public function getTimeout(): int
+    /**
+     * 获取key的获取时间
+     *
+     * @return int
+     */
+    public function getTtl() : int
     {
-        return $this->lockTimeout;
+        return $this->redisClient()->ttl($this->lockKey);
     }
 
     /**
@@ -97,7 +102,10 @@ class RedisLock {
      */
     public function lock(): bool
     {
-        return (bool)$this->redisClient()->set($this->lockKey, $this->lockToken, 'NX', 'EX', $this->lockTimeout);
+        return (bool)$this->redisClient()->eval(RedisLua::luaLock,1,
+            $this->lockKey,
+            $this->lockToken,
+            $this->lockTimeout);
     }
 
     /**
@@ -125,7 +133,9 @@ class RedisLock {
      */
     public function unlock(): bool
     {
-        return (bool)$this->redis->eval(RedisLua::luaUnlock, 1, $this->lockKey, $this->lockToken);
+        return (bool)$this->redisClient()->eval(RedisLua::luaUnlock, 1,
+            $this->lockKey,
+            $this->lockToken);
     }
 
     /**
@@ -136,6 +146,8 @@ class RedisLock {
      */
     public function renew(int $exp) : bool
     {
-        return (bool)$this->redisClient()->expire($this->lockKey, $exp);
+        return (bool)$this->redisClient()->eval(RedisLua::luaRenew, 1,
+            $this->lockKey,
+            $exp);
     }
 }
