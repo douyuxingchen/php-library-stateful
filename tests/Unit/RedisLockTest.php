@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Feature\Lock;
+namespace Tests\Unit;
 
 use Douyuxingchen\PhpLibraryStateful\Lock\RedisLock;
 use PHPUnit\Framework\TestCase;

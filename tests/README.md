@@ -3,7 +3,10 @@
 ## 常用命令
 ```bash
 # 测试指定文件
-./vendor/bin/phpunit tests/Feature/FeigeTest.php
+./vendor/bin/phpunit tests/Feature/FirstTest.php
+
+# 测试指定方法
+./vendor/bin/phpunit --filter YourFunction tests/Feature/FirstTest.php
 ```
 
 ## 如果读取环境变量
