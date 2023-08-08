@@ -11,9 +11,9 @@ RedisLock 是一个基于 Redis 的分布式锁封装类，用于实现分布式
 use Douyuxingchen\PhpLibraryStateful\Lock\RedisLock;
 ```
 
-3. 获取 RedisLock 的单例对象：
+3. 获取 RedisLock 的对象：
 ```php
-$redisLock = RedisLock::getInstance()->setKey('test_key');
+$redisLock = new RedisLock('lock_key');
 ```
 
 4. 自定义设置（可选）：
@@ -42,7 +42,7 @@ if ($result) {
 
 6. 自旋锁：
 ```php
-$result = $redisLock->spinLock(10);
+$result = $redisLock->spinLock(3);
 if ($result) {
    // 成功获取锁，执行互斥操作
 } else {
@@ -62,7 +62,7 @@ if ($result) {
 
 8. 锁手动续期：
 ```php
-$result = $redisLock->renew();
+$result = $redisLock->renew(5);
 if ($result) {
    // 续期成功，执行后续操作
 } else {
@@ -73,7 +73,7 @@ if ($result) {
 9. 实践技巧
 使用  `try` 和 `finally` 对加锁和解锁的操作进行包裹是为了确保无论业务逻辑是否抛出异常，锁都能被正确地释放。
 ```php
-$redisLock = RedisLock::getInstance()->setKey('test_key');
+$redisLock = new RedisLock('lock_key');
 try {
     $res = $redisLock->lock();
     if($res) {
@@ -87,8 +87,7 @@ try {
 ```
 
 ## 注意事项
-- RedisLock 类采用单例模式，确保在使用时只有一个实例存在。
-- 默认情况下，锁的 Key 和 Token 会使用唯一的随机字符串进行初始化，可以通过 `setKey` 和 `setToken` 方法进行自定义设置。
+- 默认情况下，锁的 Token 会使用唯一的随机字符串进行初始化，可以通过 `setToken` 方法进行自定义设置。
 - 默认超时时间为 5 秒，可以通过 `setTimeout` 方法进行自定义设置。
 - 使用自旋锁时，请设置适当的超时时间，以避免无限等待。
 
