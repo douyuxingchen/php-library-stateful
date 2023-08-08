@@ -9,7 +9,7 @@ class RedisLock {
 
     // 锁的key
     private $lockKey;
-    // 超时秒数
+    // 锁默认超时时间（秒）
     private $lockTimeout = 5;
     // 锁的token
     private $lockToken;
@@ -17,23 +17,12 @@ class RedisLock {
     private $isTests;
 
     private $redis;
-    private static $instance;
 
-    private function __construct() {
-        if (!$this->lockKey) {
-            $this->lockKey = uniqid();
-        }
+    public function __construct(string $lockKey) {
+        $this->lockKey = $lockKey;
         if (!$this->lockToken) {
             $this->lockToken = uniqid();
         }
-    }
-
-    public static function getInstance(): RedisLock
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
     }
 
     private function redisClient(): Connection
@@ -62,19 +51,7 @@ class RedisLock {
     }
 
     /**
-     * 自定义 lockKey
-     *
-     * @param string $key
-     * @return $this
-     */
-    public function setKey(string $key): RedisLock
-    {
-        $this->lockKey = $key;
-        return $this;
-    }
-
-    /**
-     * 自定义 lockTime(单位：秒)
+     * 自定义 lockTime(秒)
      *
      * @param int $timeout
      * @return $this
@@ -83,6 +60,11 @@ class RedisLock {
     {
         $this->lockTimeout = $timeout;
         return $this;
+    }
+
+    public function getTimeout(): int
+    {
+        return $this->lockTimeout;
     }
 
     /**
@@ -97,7 +79,12 @@ class RedisLock {
         return $this;
     }
 
-    public function setTests()
+    public function getToken(): string
+    {
+        return $this->lockToken;
+    }
+
+    public function setTests(): RedisLock
     {
         $this->isTests = true;
         return $this;
@@ -121,9 +108,8 @@ class RedisLock {
      */
     public function spinLock(int $timeout): bool
     {
-        $start = microtime(true);
-        $end = $start + $timeout*1000;
-        while (microtime(true) < $end) {
+        $end = time() + $timeout;
+        while (time() < $end) {
             if ($this->lock()) {
                 return true;
             }
@@ -139,21 +125,17 @@ class RedisLock {
      */
     public function unlock(): bool
     {
-        $lockToken = $this->redisClient()->get($this->lockKey);
-        if ($lockToken === $this->lockToken) {
-            $this->redisClient()->del($this->lockKey);
-            return true;
-        }
-        return false;
+        return (bool)$this->redis->eval(RedisLua::luaUnlock, 1, $this->lockKey, $this->lockToken);
     }
 
     /**
      * 锁手动续期
      *
+     * @param int $exp 过期时间(秒)
      * @return bool
      */
-    public function renew() : bool
+    public function renew(int $exp) : bool
     {
-        return (bool)$this->redisClient()->expire($this->lockKey, $this->lockTimeout);
+        return (bool)$this->redisClient()->expire($this->lockKey, $exp);
     }
 }
