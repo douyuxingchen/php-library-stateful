@@ -647,16 +647,16 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd"
+                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
-                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
+                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/c7f2872fb273bf493811473dafc88d60ae829f48",
+                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48",
                 "shasum": ""
             },
             "require": {
@@ -687,7 +687,7 @@
             "description": "Mime-type detection for Flysystem",
             "support": {
                 "issues": "https://github.com/thephpleague/mime-type-detection/issues",
-                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.11.0"
+                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.12.0"
             },
             "funding": [
                 {
@@ -699,7 +699,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-17T13:12:02+00:00"
+            "time": "2023-08-03T07:14:11+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4655,16 +4655,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "de036ec91d55d2a9e0db2ba975b512cdb1c23921"
+                "reference": "66783ce213de415b451b904bfef9dda0cf9aeae0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/de036ec91d55d2a9e0db2ba975b512cdb1c23921",
-                "reference": "de036ec91d55d2a9e0db2ba975b512cdb1c23921",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/66783ce213de415b451b904bfef9dda0cf9aeae0",
+                "reference": "66783ce213de415b451b904bfef9dda0cf9aeae0",
                 "shasum": ""
             },
             "require": {
@@ -4707,7 +4707,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/3.0.2"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/3.0.3"
             },
             "funding": [
                 {
@@ -4715,7 +4715,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-10T06:55:38+00:00"
+            "time": "2023-08-02T09:23:32+00:00"
         },
         {
             "name": "sebastian/object-enumerator",
