@@ -15,7 +15,6 @@ class RedisLua {
         end 
 LUA;
 
-
     const luaUnlock = <<<LUA
         local key = KEYS[1]
         local token = ARGV[1]
@@ -26,7 +25,6 @@ LUA;
             return 0
         end
 LUA;
-
 
     const luaRenew = <<<LUA
         local key = KEYS[1]
